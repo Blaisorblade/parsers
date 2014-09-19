@@ -31,8 +31,8 @@ case class CSVReporter() extends Reporter {
   }
 
   def writeToFile(writer: PrintWriter)(result: CurveData) = {
-    val nameInner = result.context.properties.getOrElse(Key("scope"), "unknown").asInstanceOf[List[String]](0).toString
-    val nameOuter = result.context.properties.getOrElse(Key("scope"), "unknown").asInstanceOf[List[String]](1).toString
+    val nameInner = result.context(Key.dsl.scope)(0)
+    val nameOuter = result.context(Key.dsl.scope)(1)
 
     result.measurements.foreach(measurement => {
       val params = measurement.params

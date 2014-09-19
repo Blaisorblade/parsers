@@ -1,4 +1,4 @@
-import java.io.PrintWriter
+import java.io.{File,PrintWriter}
 import java.text.SimpleDateFormat
 import java.util.{Date, TimeZone}
 
@@ -12,6 +12,7 @@ case class CSVReporter() extends Reporter {
     val dir: String = results.context.goe(Key.reports.resultDir, "tmp")
     val fileName = s"${dateISO(new Date())}.csv"
 
+    new File(dir).mkdirs()
     val writer = new PrintWriter(s"$dir/$fileName")
 
     results foreach writeToFile(writer)

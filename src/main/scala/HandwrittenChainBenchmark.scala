@@ -1,6 +1,6 @@
 import org.scalameter.api._
 import parsers.truffle.Tests
-import parsers.{ChainsOuterRD, ChainsRD}
+import parsers._
 
 object HandwrittenChainBenchmark
   extends PerformanceTest.OfflineReport {
@@ -44,6 +44,14 @@ object HandwrittenChainBenchmark
       using(sizes) in {
         _ => {
           new ChainsOuterRD(s).s()
+        }
+      }
+    }
+
+    measure method("shortOuter") in {
+      using(sizes) in {
+        _ => {
+          new ShortChainsOuterRD(s).s()
         }
       }
     }

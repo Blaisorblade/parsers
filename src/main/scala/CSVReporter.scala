@@ -9,7 +9,7 @@ case class CSVReporter() extends Reporter {
   override def report(result: CurveData, persistor: Persistor): Unit = {}
 
   override def report(results: Tree[CurveData], persistor: Persistor): Boolean = {
-    val dir = results.context.properties.getOrElse(Key("result-dir"), "tmp")
+    val dir: String = results.context.goe(Key.reports.resultDir, "tmp")
     val fileName = s"${dateISO(new Date())}.csv"
 
     val writer = new PrintWriter(s"$dir/$fileName")

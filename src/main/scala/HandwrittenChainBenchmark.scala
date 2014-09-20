@@ -1,4 +1,6 @@
 import org.scalameter.api._
+import org.scalameter.Executor.Measurer
+
 import parsers.truffle.Tests
 import parsers._
 
@@ -6,6 +8,8 @@ object HandwrittenChainBenchmark
   extends PerformanceTest.OfflineReport {
 
   val sizes = Gen.enumeration("dummy")(42)
+  override def measurer = new Measurer.IgnoringGC with Measurer.PeriodicReinstantiation with Measurer.OutlierElimination
+      //with Measurer.RelativeNoise //more noise than signal.
 
   override def reporter = Reporter.Composite(CSVReporter(), RegressionReporter(Tester.Accepter(), Historian.Window(1)), DsvReporter(','), super.reporter)
 
